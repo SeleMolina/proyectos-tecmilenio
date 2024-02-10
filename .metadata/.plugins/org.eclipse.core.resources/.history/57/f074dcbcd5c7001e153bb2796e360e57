@@ -1,0 +1,11 @@
+package act4;
+
+import java.util.HashMap;
+
+public class Adressbook {
+	private HashMap <String,String> contactos = new HashMap();
+	
+	public Adressbook() {
+		
+	}
+}

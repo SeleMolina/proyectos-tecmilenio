@@ -1,0 +1,51 @@
+package act4;
+
+import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Adressbook {
+	private HashMap <String,String> contactos;
+    private	String csvFile = "datos.csv";
+	
+	public Adressbook() {
+	}
+	
+	public void load() {
+        String line = "";
+        String cvsSplitBy = ",";
+        
+        contactos = new HashMap<>();
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+            	String[] data = line.split(cvsSplitBy);
+                
+                if (data.length >= 2) {
+                    String key = data[0];
+                    String value = data[1];
+                    contactos.put(key, value);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void save() {
+		
+        try (FileWriter writer = new FileWriter(csvFile)) {
+            for (HashMap.Entry<String, String> entry : contactos.entrySet()) {
+                writer.append(entry.getKey())
+                      .append(',')
+                      .append(entry.getValue())
+                      .append('\n');
+            }
+            System.out.println("Datos guardados exitosamente en " + csvFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+}
