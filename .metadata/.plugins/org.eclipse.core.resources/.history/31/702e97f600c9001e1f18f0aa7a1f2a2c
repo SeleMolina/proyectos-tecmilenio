@@ -1,0 +1,60 @@
+package evidenciaPartefinal;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Persitencia {
+	private static	String csvpaciente = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\pacientes.csv";	
+	private static	String csvdoctor = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\doctores.csv";	
+	
+	public static ArrayList<Paciente> loadPaciente(){
+    	ArrayList<Paciente> pacientes = new ArrayList<>();    
+		
+        try (BufferedReader br = new BufferedReader(new FileReader(csvpaciente))) {
+            String line;
+            while ((line = br.readLine()) != null) {          	
+                String[] data = line.split(",");
+                
+                if (data.length == 2) {
+                    String nomPaciente = data[0].trim();
+                    int idPaciente = Integer.parseInt(data[1].trim());
+                    pacientes.add(new Paciente(nomPaciente, idPaciente));
+                    System.out.println("Nombre: " + nomPaciente + ", ID: " + idPaciente);
+                    
+                } else {
+                    System.out.println("Error: La línea no tiene el formato esperado.");
+                    
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el archivo CSV.");
+        }
+        return pacientes;
+	}
+	
+	public static ArrayList<Doctor> loadDoctor() {
+		ArrayList<Doctor> doctores = new ArrayList<>();    
+		
+		 try (BufferedReader br = new BufferedReader(new FileReader(csvdoctor))) {
+	            String line;
+	            while ((line = br.readLine()) != null) {
+	                String[] data = line.split(",");
+	                if (data.length == 3) {
+	                    int idDoctor = Integer.parseInt(data[0].trim());
+	                    String nomDoctor = data[1].trim();
+	                    String espDoctor = data[2].trim();
+	                    doctores.add(new Doctor(idDoctor, nomDoctor, espDoctor));
+	                 } else {
+	                    System.out.println("Error: La línea no tiene el formato esperado.");
+	                }
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.out.println("Error al leer el archivo CSV.");
+	        }
+		 return doctores;
+	}
+}

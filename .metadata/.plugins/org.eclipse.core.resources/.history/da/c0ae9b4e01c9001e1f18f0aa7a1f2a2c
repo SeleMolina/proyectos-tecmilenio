@@ -1,0 +1,16 @@
+package evidenciaPartefinal;
+
+import java.util.ArrayList;
+
+public class AplCitas {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<Doctor> doctores = new ArrayList<>();
+		ArrayList<Paciente> pacientes = new ArrayList<>();    
+		ArrayList<Cita> citas = new ArrayList<>();    
+		
+		
+	}
+
+}

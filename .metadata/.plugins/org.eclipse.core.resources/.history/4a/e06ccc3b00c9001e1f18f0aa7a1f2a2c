@@ -1,0 +1,77 @@
+package evidenciaPartefinal;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Paciente {
+	//ruta del archivo csv
+	private	String csvpaciente = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\pacientes.csv";	
+
+	private String nomPaciente;
+	private int idPaciente;
+	
+	public Paciente(String nomPaciente, int idPaciente) {		
+		this.nomPaciente = nomPaciente;
+		this.idPaciente = idPaciente;
+		
+	}
+	
+    public ArrayList<Paciente> load() {
+    	ArrayList<Paciente> pacientes = new ArrayList<>();    
+		
+        try (BufferedReader br = new BufferedReader(new FileReader(csvpaciente))) {
+            String line;
+            while ((line = br.readLine()) != null) {          	
+                String[] data = line.split(",");
+                
+                if (data.length == 2) {
+                    String nomPaciente = data[0].trim();
+                    int idPaciente = Integer.parseInt(data[1].trim());
+                    pacientes.add(new Paciente(nomPaciente, idPaciente));
+                    System.out.println("Nombre: " + nomPaciente + ", ID: " + idPaciente);
+                    
+                } else {
+                    System.out.println("Error: La línea no tiene el formato esperado.");
+                    
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el archivo CSV.");
+        }
+        return pacientes;
+    }
+
+    // Método para guardar datos en un archivo CSV
+    public void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvpaciente, true))) {
+            String line = nomPaciente + "," + idPaciente;
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Datos guardados en el archivo CSV.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al guardar los datos en el archivo CSV.");
+        }
+    }
+    
+	public String getNomPaciente() {
+		return nomPaciente;
+	}
+
+	public void setNomPaciente(String nomPaciente) {
+		this.nomPaciente = nomPaciente;
+	}
+
+	public int getIdPaciente() {
+		return idPaciente;
+	}
+
+	public void setIdPaciente(int idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+}

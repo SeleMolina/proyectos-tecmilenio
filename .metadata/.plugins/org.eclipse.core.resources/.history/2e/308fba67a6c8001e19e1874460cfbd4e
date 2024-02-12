@@ -1,0 +1,6 @@
+package evidenciaPartefinal;
+
+public class Paciente {
+	private	String csvpaciente = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\pacientes.csv";	
+	
+}

@@ -1,0 +1,36 @@
+package evidenciaPartefinal;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Cita {	
+	Doctor doctor;
+	Paciente paciente;
+	String date;
+	
+	public Cita(Doctor doctor, Paciente paciente, String fecha) {
+		this.doctor = doctor;
+		this.paciente = paciente;
+		this.date = fecha;
+	}
+	
+    // Método para cargar datos desde un archivo CSV
+
+    // Método para guardar datos en un archivo CSV
+    public void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvcita, true))) {
+            String line = doctor.getNomDoctor() + "," + doctor.getIdDoctor() + "," + doctor.getEspDoctor()+","+ paciente.getNomPaciente() + "," + paciente.getIdPaciente() + "," + date;
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Datos guardados en el archivo CSV.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al guardar los datos en el archivo CSV.");
+        }
+    }
+	
+}

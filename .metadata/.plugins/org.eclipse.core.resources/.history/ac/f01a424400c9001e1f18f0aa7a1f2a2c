@@ -1,0 +1,35 @@
+package evidenciaPartefinal;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Persitencia {
+	
+	public static ArrayList<Paciente> loadPaciente(){
+    	ArrayList<Paciente> pacientes = new ArrayList<>();    
+		
+        try (BufferedReader br = new BufferedReader(new FileReader(csvpaciente))) {
+            String line;
+            while ((line = br.readLine()) != null) {          	
+                String[] data = line.split(",");
+                
+                if (data.length == 2) {
+                    String nomPaciente = data[0].trim();
+                    int idPaciente = Integer.parseInt(data[1].trim());
+                    pacientes.add(new Paciente(nomPaciente, idPaciente));
+                    System.out.println("Nombre: " + nomPaciente + ", ID: " + idPaciente);
+                    
+                } else {
+                    System.out.println("Error: La línea no tiene el formato esperado.");
+                    
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el archivo CSV.");
+        }
+        return pacientes;
+	}
+}

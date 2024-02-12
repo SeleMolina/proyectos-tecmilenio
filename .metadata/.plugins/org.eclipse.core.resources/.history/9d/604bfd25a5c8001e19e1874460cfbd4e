@@ -1,0 +1,21 @@
+package evidenciaPartefinal;
+
+public class Doctor {
+		//ubicacion del archivo para dar persitencia
+	private	String csvdoctor = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\doctores.csv";	
+	int idDoctor;
+	String nomDoctor;
+	String espDoctor;
+	
+	public Doctor(int idDoctor, String nomDoctor, String espDoctor) {
+		this.idDoctor = idDoctor;
+		this.nomDoctor = nomDoctor;
+		this.espDoctor = espDoctor;
+		
+	}
+	
+	// metodo para cargar
+	public void Load() {
+		
+	}
+}

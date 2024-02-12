@@ -1,0 +1,71 @@
+package evidenciaPartefinal;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Cita {
+	String csvcita = "D:\\ProyectosTecmilenio\\Actividad2_Metodos_Atributos\\src\\evidenciaPartefinal\\citas.csv";	
+	
+	Doctor doctor;
+	Paciente paciente;
+	String date;
+	
+	public Cita(Doctor doctor, Paciente paciente, String fecha) {
+		this.doctor = doctor;
+		this.paciente = paciente;
+		this.date = fecha;
+	}
+	
+    // Método para cargar datos desde un archivo CSV
+    public void load() {
+    	ArrayList<Cita> citas = new ArrayList<>();    
+		Paciente auxPaciente;
+		Doctor auxDoctor;
+    	
+        try (BufferedReader br = new BufferedReader(new FileReader(csvcita))) {
+            String line;
+            
+            while ((line = br.readLine()) != null) {            	
+                String[] data = line.split(",");
+                
+                if (data.length == 3) {
+                    String nomDoctor = data[0].trim();
+                    int idDoctor = Integer.parseInt(data[1].trim());
+                    String espDoctor = data[2].trim();
+                    auxDoctor = new Doctor(idDoctor, nomDoctor, espDoctor);
+                    String nomPaciente = data[3].trim();
+                    int idPaciente = Integer.parseInt(data[4].trim());
+                    auxPaciente = new Paciente(nomPaciente, idPaciente);
+                    String fecha = data[5].trim();
+                    
+                    
+                     } else {
+                    System.out.println("Error: La línea no tiene el formato esperado.");
+                    
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el archivo CSV.");
+            
+        }
+    }
+
+    // Método para guardar datos en un archivo CSV
+    public void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvcita, true))) {
+            String line = doctor.getNomDoctor() + "," + doctor.getIdDoctor() + "," + paciente.getNomPaciente() + "," + paciente.getIdPaciente() + "," + date;
+            bw.write(line);
+            bw.newLine();
+            System.out.println("Datos guardados en el archivo CSV.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al guardar los datos en el archivo CSV.");
+        }
+    }
+	
+}
